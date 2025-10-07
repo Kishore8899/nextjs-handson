@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import "./globals.css";
-import LinkPage from "./(linkroutes)/link/page";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,22 +29,54 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <header
-       style={{ padding: '1rem', backgroundColor: '#30a6bbff', marginBottom: '20px',textAlign: 'center' }}>
-       <p>Header</p>
-      </header>
-       <LinkPage></LinkPage>
-        <div style={{alignItems: 'center', display: 'flex', justifyContent: 'center'}}>
-          {children}
-          </div>
-        <footer
-          style={{ padding: '1rem', backgroundColor: '#4b4edfff', marginTop: '20px', textAlign: 'center' }}>
-          <p>Footer</p>
-        </footer>
+    <html lang="en" className="h-full">
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-full flex flex-col bg-background`}>
+        <div className="flex min-h-full flex-col">
+          {/* Header */}
+          <header className="fixed top-0 left-0 right-0 h-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+            <div className="container flex h-full items-center justify-between">
+              <Link href="/" className="flex items-center space-x-2">
+                <span className="text-xl font-bold">Your Logo</span>
+              </Link>
+              <nav className="flex items-center space-x-4">
+                <Link href="/about">
+                  <Button variant="ghost">About</Button>
+                </Link>
+                <Link href="/products-db">
+                  <Button variant="ghost">Products</Button>
+                </Link>
+                <Link href="/login">
+                  <Button>Login</Button>
+                </Link>
+              </nav>
+            </div>
+          </header>
+
+          {/* Main content with padding for header and footer */}
+          <main className="flex-1 overflow-auto pt-16 pb-16">
+            {children}
+          </main>
+
+          {/* Footer */}
+          <footer className="fixed bottom-0 left-0 right-0 h-16 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-full items-center justify-between">
+              <div className="text-sm text-muted-foreground">
+                © {new Date().getFullYear()} Your Company. All rights reserved.
+              </div>
+              <div className="flex items-center space-x-4">
+                <a href="#" className="text-sm text-muted-foreground hover:text-foreground">
+                  Privacy Policy
+                </a>
+                <a href="#" className="text-sm text-muted-foreground hover:text-foreground">
+                  Terms of Service
+                </a>
+                <a href="#" className="text-sm text-muted-foreground hover:text-foreground">
+                  Contact
+                </a>
+              </div>
+            </div>
+          </footer>
+        </div>
       </body>
     </html>
   );

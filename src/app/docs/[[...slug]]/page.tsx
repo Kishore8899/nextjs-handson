@@ -1,5 +1,11 @@
 //example for Catch all Routes
- export default async function Docs({ params }: { params: { slug: string[] } }) {
+type DocsPageProps = {
+  params: Promise<{
+    slug?: string[];
+  }>;
+};
+
+ export default async function Docs({ params }: DocsPageProps) {
       // ✅ Await params before using
   const { slug } = await params;
     if(slug?.length === 1 && slug?.includes("content")){
